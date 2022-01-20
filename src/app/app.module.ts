@@ -28,6 +28,7 @@ import { InterceptorService } from './services/interceptor.service';
 //JWT Imports
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
     RegisterComponent,
     UsersComponent,
     EditUserComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,

@@ -51,6 +51,10 @@ export class UserService {
     );
   }
 
+  addUser(user: User) {
+    return this.http.post<User>(USER_API, user).pipe(map((res) => res));
+  }
+
   // deleteUser(id: number) {
   //   return this.http.delete<any>(USER_API + '/' + id).pipe(
   //     map((res: any) => {
