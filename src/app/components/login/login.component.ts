@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
       .login(this.loginForm.value)
       .pipe(
         map((res) => {
+          this.router.navigate(['users']);
           console.log('Success');
           return res;
         })

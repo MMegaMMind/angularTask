@@ -25,12 +25,17 @@ import { AppRoutingModule } from './app-routing.module';
 //Services
 import { InterceptorService } from './services/interceptor.service';
 
+//JWT Imports
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     UsersComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,8 @@ import { InterceptorService } from './services/interceptor.service';
     MatPaginatorModule,
   ],
   providers: [
+    JwtHelperService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],
   bootstrap: [AppComponent],
