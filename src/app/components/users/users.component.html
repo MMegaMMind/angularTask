@@ -1,5 +1,10 @@
 <h1>All Users</h1>
 
+<mat-form-field class="marginLeft">
+  <mat-label>Filter by UserName</mat-label>
+  <input matInput type="text" [(ngModel)]="filterValue" (input)="findByName(filterValue)" placeholder="Search by name">
+</mat-form-field>
+
 <div *ngIf="dataSource">
   <mat-table [dataSource]="dataSource.data">
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -31,6 +36,20 @@
       <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.role}} </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let row"> <button routerLink="edit-user" mat-flat-button class="marginLeft"
+          color="primary">Edit User</button>
+      </mat-cell>
+    </ng-container>
+
+
+
+
+
+
+
   </mat-table>
 
 
@@ -39,3 +58,9 @@
     aria-label="Select page" class="paginator">
   </mat-paginator>
 </div>
+
+
+
+<!-- Syntax To delete a user
+
+(click)="removeUser(row)" -->

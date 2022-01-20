@@ -13,10 +13,18 @@ import {
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
+  filterValue!: string;
   dataSource!: UserData;
   pageEvent!: PageEvent;
 
-  displayedColumns: string[] = ['id', 'name', 'email', 'imageUrl', 'role'];
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'email',
+    'imageUrl',
+    'role',
+    'action',
+  ];
 
   constructor(private userService: UserService) {}
 
@@ -27,22 +35,33 @@ export class UsersComponent implements OnInit {
   initDataSource() {
     this.userService
       .findAll(1, 10)
-      .pipe(
-        tap((users) => console.log(users)),
-        map((userData: UserData) => (this.dataSource = userData))
-      )
+      .pipe(map((userData: UserData) => (this.dataSource = userData)))
       .subscribe();
   }
 
   onPaginateChange(event: PageEvent) {
     let page = event.pageIndex;
     let size = event.pageSize;
-
     page = page + 1;
-
     this.userService
       .findAll(page, size)
       .pipe(map((userData: UserData) => (this.dataSource = userData)))
       .subscribe();
   }
+
+  findByName(name: string) {
+    this.userService
+      .paginateByName(name, 0, 10)
+      .pipe(map((userData: UserData) => (this.dataSource = userData)))
+      .subscribe();
+  }
+
+  //Delete e user code that will be implemented later
+  // removeUser(data: any) {
+  //   console.log(data);
+  //   this.userService.deleteUser(data.id).subscribe((res) => {
+  //     alert('User Deleted');
+  //     this.initDataSource();
+  //   });
+  // }
 }

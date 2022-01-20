@@ -5,3 +5,8 @@ h1 {
 .paginator {
   text-align: center;
 }
+
+
+.marginLeft {
+  margin-left: 20px;
+}

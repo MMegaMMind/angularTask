@@ -34,4 +34,28 @@ export class UserService {
       catchError((err) => throwError(err))
     );
   }
+
+  paginateByName(
+    name: string,
+    page: number,
+    size: number
+  ): Observable<UserData> {
+    let params = new HttpParams();
+    params = params.append('name', name);
+    params = params.append('PageNumber', String(page));
+    params = params.append('PageSize', String(size));
+
+    return this.http.get(USER_API, { params }).pipe(
+      map((userData: UserData | any) => userData),
+      catchError((err) => throwError(err))
+    );
+  }
+
+  // deleteUser(id: number) {
+  //   return this.http.delete<any>(USER_API + '/' + id).pipe(
+  //     map((res: any) => {
+  //       return res;
+  //     })
+  //   );
+  // }
 }

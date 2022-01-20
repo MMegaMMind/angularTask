@@ -41,8 +41,8 @@ import { InterceptorService } from './services/interceptor.service';
     //Angular Material
     BrowserAnimationsModule,
     MatSelectModule,
-    MatToolbarModule,
     MatFormFieldModule,
+    MatToolbarModule,
     MatButtonModule,
     MatInputModule,
     MatTableModule,
