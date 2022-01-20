@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
-
-import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //Angular Material
 import { MatSelectModule } from '@angular/material/select';
@@ -14,26 +10,47 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
+//Components
+import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { UsersComponent } from './components/users/users.component';
+
+//Modules
+import { AppRoutingModule } from './app-routing.module';
+
+//Services
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    UsersComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    //Angular Material
     BrowserAnimationsModule,
     MatSelectModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

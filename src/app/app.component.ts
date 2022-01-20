@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-task';
+
+  entries = [
+    { name: 'Login', link: 'login' },
+    { name: 'Register', link: 'register' },
+  ];
+
+  constructor(private router: Router) {}
+
+  navigateTo(value: any) {
+    this.router.navigate(['../', value]);
+  }
 }

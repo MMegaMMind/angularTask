@@ -1,0 +1,41 @@
+<h1>All Users</h1>
+
+<div *ngIf="dataSource">
+  <mat-table [dataSource]="dataSource.data">
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: displayedColumns"></mat-row>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="imageUrl">
+      <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.imageUrl}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.role}} </mat-cell>
+    </ng-container>
+  </mat-table>
+
+
+  <mat-paginator [length]="dataSource.pagination.totalCount" [pageSize]="dataSource.pagination.pageSize"
+    [pageSizeOptions]="[10]" (page)="pageEvent = $event;onPaginateChange($event)" showFirstLastButtons
+    aria-label="Select page" class="paginator">
+  </mat-paginator>
+</div>
