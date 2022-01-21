@@ -23,7 +23,8 @@ export class UsersComponent implements OnInit {
     'email',
     'imageUrl',
     'role',
-    'action',
+    'edit',
+    'delete',
   ];
 
   constructor(private userService: UserService) {}
@@ -56,12 +57,11 @@ export class UsersComponent implements OnInit {
       .subscribe();
   }
 
-  //Delete e user code that will be implemented later
-  // removeUser(data: any) {
-  //   console.log(data);
-  //   this.userService.deleteUser(data.id).subscribe((res) => {
-  //     alert('User Deleted');
-  //     this.initDataSource();
-  //   });
-  // }
+  removeUser(data: any) {
+    console.log(data);
+    this.userService.deleteUser(data.id).subscribe((res) => {
+      alert('User Deleted');
+      this.initDataSource();
+    });
+  }
 }

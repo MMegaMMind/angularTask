@@ -38,9 +38,24 @@
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
       <mat-cell *matCellDef="let row"> <button routerLink="edit-user" mat-flat-button class="marginLeft"
           color="primary">Edit User</button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+      <mat-cell *matCellDef="let row"> <button routerLink="edit-user" mat-flat-button class="marginLeft"
+          color="primary">Edit User</button>
+      </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+      <mat-cell *matCellDef="let row"> <button (click)="removeUser(row)" mat-flat-button class="marginLeft"
+          color="primary">Delete </button>
       </mat-cell>
     </ng-container>
 
@@ -63,4 +78,4 @@
 
 <!-- Syntax To delete a user
 
-(click)="removeUser(row)" -->
+ -->
