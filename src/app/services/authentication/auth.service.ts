@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { ThisReceiver } from '@angular/compiler';
 
-const AUTH_API = 'https://localhost:5001/api/Auth/';
+import { API_URL } from 'src/app/core/api.token';
 
 export interface LoginForm {
   email: string;
@@ -26,11 +25,16 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private jwtHeleper: JwtHelperService) {}
+  constructor(
+    @Inject(API_URL) private apiUrl: string,
+    private http: HttpClient,
+    private jwtHeleper: JwtHelperService
+  ) {}
 
   login(logininForm: LoginForm) {
+    const path = `${this.apiUrl}/Auth/login`;
     return this.http
-      .post<any>(AUTH_API + 'login', {
+      .post<any>(path, {
         email: logininForm.email,
         password: logininForm.password,
       })
@@ -44,9 +48,8 @@ export class AuthService {
   }
 
   register(user: User) {
-    return this.http
-      .post<any>(AUTH_API + 'register', user)
-      .pipe(map((res) => res));
+    const path = `${this.apiUrl}/Auth/register`;
+    return this.http.post<any>(path, user).pipe(map((res) => res));
   }
 
   isAuthenticated(): boolean {

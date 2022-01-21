@@ -12,11 +12,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 //Components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
 import { UsersComponent } from './components/users/users.component';
 
 //Modules
@@ -33,8 +33,6 @@ import { AddUserComponent } from './components/add-user/add-user.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     UsersComponent,
     EditUserComponent,
     AddUserComponent,
@@ -54,6 +52,8 @@ import { AddUserComponent } from './components/add-user/add-user.component';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
+    MatIconModule,
+    MatMenuModule,
   ],
   providers: [
     JwtHelperService,

@@ -1,4 +1,6 @@
-h1 {
+.heading-primary {
+  margin: 20px 0;
+  font-size: 25px;
   text-align: center;
 }
 

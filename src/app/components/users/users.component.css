@@ -1,12 +1,37 @@
-h1 {
+.heading-primary {
+  margin: 20px 0;
+  font-size: 25px;
   text-align: center;
 }
 
-.paginator {
-  text-align: center;
+.container {
+  margin: 10px 40px;
+  position: relative;
 }
 
+.user-button {
+  position: absolute;
+  right: 15px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
 
 .marginLeft {
   margin-left: 20px;
+}
+
+.button-margin-left {
+  margin-left: 15px;
+}
+
+.edit-button {
+  margin: 10px 0;
+  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
+    0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+}
+
+.table {
+  padding: 20px 40px 0 40px;
 }

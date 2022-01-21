@@ -1,4 +1,4 @@
-<h1>Login Page</h1>
+<h1 class="heading-primary">Login Page</h1>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="container">
     <mat-form-field>
@@ -11,6 +11,6 @@
       <mat-hint *ngIf="loginForm.controls['password'].errors">Password is required</mat-hint>
     </mat-form-field>
 
-    <button mat-flat-button class="primary" [disabled]='!loginForm.valid' type="submit">Login</button>
+    <button mat-flat-button color="primary" [disabled]='!loginForm.valid' type="submit">Login</button>
   </div>
 </form>

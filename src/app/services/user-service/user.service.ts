@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import { API_URL } from 'src/app/core/api.token';
 import { User } from '../authentication/auth.service';
-
-const USER_API = 'https://localhost:5001/api/User';
 
 export interface UserData {
   data: User[];
@@ -17,11 +16,12 @@ export interface UserData {
   };
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    @Inject(API_URL) private apiUrl: string,
+    private http: HttpClient
+  ) {}
 
   findAll(page: number, size: number): Observable<UserData> {
     let params = new HttpParams();
@@ -29,10 +29,10 @@ export class UserService {
     params = params.append('PageNumber', String(page));
     params = params.append('PageSize', String(size));
 
-    return this.http.get(USER_API, { params }).pipe(
-      map((userData: UserData | any) => userData),
-      catchError((err) => throwError(err))
-    );
+    const path = `${this.apiUrl}/User`;
+    return this.http
+      .get<UserData>(path, { params })
+      .pipe(catchError((err) => throwError(() => err)));
   }
 
   paginateByName(
@@ -42,24 +42,22 @@ export class UserService {
   ): Observable<UserData> {
     let params = new HttpParams();
     params = params.append('name', name);
-    params = params.append('PageNumber', String(page));
-    params = params.append('PageSize', String(size));
+    params = params.append('PageNumber', page);
+    params = params.append('PageSize', size);
 
-    return this.http.get(USER_API, { params }).pipe(
-      map((userData: UserData | any) => userData),
-      catchError((err) => throwError(err))
-    );
+    const path = `${this.apiUrl}/User`;
+    return this.http
+      .get<UserData>(path, { params })
+      .pipe(catchError((err) => throwError(() => err)));
   }
 
   addUser(user: User) {
-    return this.http.post<User>(USER_API, user).pipe(map((res) => res));
+    const path = `${this.apiUrl}/User`;
+    return this.http.post<User>(path, user).pipe(map((res) => res));
   }
 
   deleteUser(id: number) {
-    return this.http.delete<any>(USER_API + '/' + id).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+    const path = `${this.apiUrl}/User`;
+    return this.http.delete<any>(`${path}/${id}`).pipe(tap(console.log));
   }
 }

@@ -23,8 +23,7 @@ export class UsersComponent implements OnInit {
     'email',
     'imageUrl',
     'role',
-    'edit',
-    'delete',
+    'action',
   ];
 
   constructor(private userService: UserService) {}
