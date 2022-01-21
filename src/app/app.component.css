@@ -17,3 +17,7 @@ mat-toolbar {
 .menu {
   margin-right: 15px;
 }
+
+.home-icon {
+  color: #f44336;
+}

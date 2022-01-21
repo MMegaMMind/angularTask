@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //Components
 import { AppComponent } from './app.component';
@@ -54,6 +55,7 @@ import { AddUserComponent } from './components/add-user/add-user.component';
     MatPaginatorModule,
     MatIconModule,
     MatMenuModule,
+    MatDialogModule,
   ],
   providers: [
     JwtHelperService,

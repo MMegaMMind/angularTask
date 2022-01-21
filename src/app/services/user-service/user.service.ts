@@ -58,6 +58,12 @@ export class UserService {
 
   deleteUser(id: number) {
     const path = `${this.apiUrl}/User`;
-    return this.http.delete<any>(`${path}/${id}`).pipe(tap(console.log));
+    return this.http.delete<User>(`${path}/${id}`).pipe(tap(console.log));
+  }
+
+  editUser(id: number, user: User) {
+    const path = `${this.apiUrl}/User/`;
+
+    return this.http.put<User>(`${path}/${id}`, user).pipe(tap(console.log));
   }
 }
