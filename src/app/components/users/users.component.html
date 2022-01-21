@@ -1,7 +1,5 @@
 <h1 class="heading-primary">All Users</h1>
 
-
-
 <div class="container">
   <mat-form-field class="marginLeft">
     <mat-label>Filter by UserName</mat-label>
@@ -12,7 +10,6 @@
   <button class="user-button" color="warn" mat-flat-button routerLink="add-user">Create a
     User</button>
 </div>
-
 
 <div *ngIf="dataSource">
   <mat-table class="table" [dataSource]="dataSource.data">
@@ -59,7 +56,6 @@
       </mat-cell>
     </ng-container>
   </mat-table>
-
 
   <mat-paginator [length]="dataSource.pagination.totalCount" [pageSize]="dataSource.pagination.pageSize"
     [pageSizeOptions]="[10]" (page)="pageEvent = $event;onPaginateChange($event)" showFirstLastButtons

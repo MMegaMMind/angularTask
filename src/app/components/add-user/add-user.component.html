@@ -1,6 +1,6 @@
-<h1>Add User</h1>
+<h1 class="heading-primary">Add User</h1>
 
-<form [formGroup]="addUserForm">
+<form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
   <div class="container">
     <mat-form-field>
       <input matInput placeholder="Name" formControlName="name">
@@ -22,13 +22,7 @@
       <input matInput placeholder="ImageUrl" formControlName="imageUrl">
       <mat-hint *ngIf="addUserForm.get('imageUrl')?.errors">ImageUrl is required!!</mat-hint>
     </mat-form-field>
-
-    <!-- <mat-form-field>
-      <input matInput placeholder="Role" formControlName="role">
-
-    </mat-form-field> -->
-
-    <button mat-flat-button color="warn" [disabled]="addUserForm.invalid" type="button" (click)="postUser()">Add
+    <button mat-flat-button color="warn" [disabled]="addUserForm.invalid" type="submit">Add
       User</button>
   </div>
 </form>
