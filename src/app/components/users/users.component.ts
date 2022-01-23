@@ -17,8 +17,6 @@ export class UsersComponent implements OnInit {
   dataSource!: UserData;
   pageEvent!: PageEvent;
 
-  toggled = false;
-
   displayedColumns: string[] = [
     'id',
     'name',
@@ -64,9 +62,5 @@ export class UsersComponent implements OnInit {
       alert('User Deleted');
       this.initDataSource();
     });
-  }
-
-  toggle() {
-    this.toggled = !this.toggled;
   }
 }

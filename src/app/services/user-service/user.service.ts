@@ -25,11 +25,11 @@ export class UserService {
 
   findAll(page: number, size: number): Observable<UserData> {
     let params = new HttpParams();
-
     params = params.append('PageNumber', String(page));
     params = params.append('PageSize', String(size));
 
     const path = `${this.apiUrl}/User`;
+
     return this.http
       .get<UserData>(path, { params })
       .pipe(catchError((err) => throwError(() => err)));
@@ -61,9 +61,13 @@ export class UserService {
     return this.http.delete<User>(`${path}/${id}`).pipe(tap(console.log));
   }
 
+  getUser(id: number) {
+    const path = `${this.apiUrl}/User/`;
+    return this.http.get<User>(`${path}/${id}`).pipe(tap(console.log));
+  }
+
   editUser(id: number, user: User) {
     const path = `${this.apiUrl}/User/`;
-
     return this.http.put<User>(`${path}/${id}`, user).pipe(tap(console.log));
   }
 }
