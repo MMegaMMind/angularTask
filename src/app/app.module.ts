@@ -32,6 +32,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,9 @@ import { EditDialogComponent } from './components/edit-dialog/edit-dialog.compon
     UsersComponent,
     AddUserComponent,
     EditDialogComponent,
+    DeleteDialogComponent,
   ],
-  entryComponents: [EditDialogComponent],
+  entryComponents: [EditDialogComponent, DeleteDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

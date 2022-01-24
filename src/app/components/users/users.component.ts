@@ -8,6 +8,7 @@ import {
 
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -40,6 +41,11 @@ export class UsersComponent implements OnInit {
     ref.componentInstance.selectedUser = data;
   }
 
+  openDialog2(data: any) {
+    const ref = this.dialog.open(DeleteDialogComponent);
+    ref.componentInstance.selectedUser = data;
+  }
+
   initDataSource() {
     this.userService
       .findAll(1, 10)
@@ -62,13 +68,5 @@ export class UsersComponent implements OnInit {
       .paginateByName(name, 0, 10)
       .pipe(map((userData: UserData) => (this.dataSource = userData)))
       .subscribe();
-  }
-
-  removeUser(data: any) {
-    console.log(data);
-    this.userService.deleteUser(data.id).subscribe((res) => {
-      alert('User Deleted');
-      this.initDataSource();
-    });
   }
 }

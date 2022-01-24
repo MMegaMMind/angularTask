@@ -22,7 +22,7 @@ export class EditDialogComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: Router,
+
     public dialog: MatDialog
   ) {}
 
