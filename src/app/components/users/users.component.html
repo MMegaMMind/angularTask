@@ -1,9 +1,9 @@
 <h1 class="heading-primary">All Users</h1>
 
 <div class="container">
-  <mat-form-field class="marginLeft">
+  <mat-form-field color="warn" class="marginLeft">
     <mat-label>Search by Name</mat-label>
-    <input matInput type="text" [(ngModel)]="filterValue" (input)="findByName(filterValue)"
+    <input color="warn" matInput type="text" [(ngModel)]="filterValue" (input)="findByName(filterValue)"
       placeholder="Search by name">
   </mat-form-field>
 
@@ -46,7 +46,10 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef class="action-header"> Action </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button class="edit-button" routerLink="edit-user" mat-stroked-button color="warn">Edit</button>
+        <!-- <button class="edit-button" routerLink="edit-user" mat-stroked-button color="warn"
+          (click)="onClick(row)">Edit</button> -->
+
+        <button class="edit-button" mat-stroked-button color="warn" (click)="openDialog(row)">Edit</button>
 
         <!-- Delete Button -->
         <button class="button-margin-left" (click)="removeUser(row)" mat-mini-fab color="warn"

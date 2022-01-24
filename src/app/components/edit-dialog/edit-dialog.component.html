@@ -1,0 +1,21 @@
+<h1 mat-dialog-title class="heading-primary">Edit User</h1>
+
+<mat-dialog-content>
+  <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+    <div class="form-container">
+      <mat-form-field color="warn">
+        <input color="warn" matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field color="warn">
+        <input color="warn" matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field color="warn">
+        <input matInput placeholder="ImageUrl" formControlName="imageUrl">
+      </mat-form-field>
+      <button class="editUser-button " mat-flat-button color="warn" type="submit">Update
+        User</button>
+    </div>
+  </form>
+</mat-dialog-content>

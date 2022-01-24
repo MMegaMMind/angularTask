@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import { UserModel } from 'src/app/components/users/user-model';
 import { API_URL } from 'src/app/core/api.token';
 import { User } from '../authentication/auth.service';
 
@@ -61,13 +62,12 @@ export class UserService {
     return this.http.delete<User>(`${path}/${id}`).pipe(tap(console.log));
   }
 
-  getUser(id: number) {
-    const path = `${this.apiUrl}/User/`;
-    return this.http.get<User>(`${path}/${id}`).pipe(tap(console.log));
+  editUser(id: number, user: User) {
+    const path = `${this.apiUrl}/User/${id}`;
+    return this.http.put<User>(path, user);
   }
 
-  editUser(id: number, user: User) {
-    const path = `${this.apiUrl}/User/`;
-    return this.http.put<User>(`${path}/${id}`, user).pipe(tap(console.log));
+  logout() {
+    sessionStorage.removeItem('crud-token');
   }
 }

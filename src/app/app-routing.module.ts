@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 //Components
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
+
 import { UsersComponent } from './components/users/users.component';
 
 import { AuthGuard } from './guards/auth.guard';
@@ -26,11 +26,6 @@ const ROUTES: Routes = [
 
     children: [
       {
-        path: 'edit-user',
-        component: EditUserComponent,
-        canActivate: [AuthGuard],
-      },
-      {
         path: 'add-user',
         component: AddUserComponent,
         canActivate: [AuthGuard],
@@ -41,7 +36,13 @@ const ROUTES: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: 'users-dashboard', loadChildren: () => import('./users-dashboard/users-dashboard.module').then(m => m.UsersDashboardModule) },
+  {
+    path: 'users-dashboard',
+    loadChildren: () =>
+      import('./users-dashboard/users-dashboard.module').then(
+        (m) => m.UsersDashboardModule
+      ),
+  },
 ];
 
 @NgModule({

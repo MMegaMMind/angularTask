@@ -13,12 +13,10 @@ export interface LoginForm {
 export const JWT_TOKEN = 'crud-token';
 
 export interface User {
-  id?: number;
-  name?: string;
-  email?: string;
-  password?: string;
-  imageUrl?: string;
-  role?: number;
+  email: string;
+  name: string;
+  imageUrl: string;
+  role: number;
 }
 
 @Injectable({

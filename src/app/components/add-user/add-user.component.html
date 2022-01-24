@@ -1,28 +1,33 @@
-<h1 class="heading-primary">Add User</h1>
+<div class="container">
+  <mat-card class="mat-card">
+    <h1 class="heading-primary">Add User</h1>
 
-<form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
-  <div class="container">
-    <mat-form-field>
-      <input matInput placeholder="Name" formControlName="name">
-      <mat-hint *ngIf="addUserForm.get('name')?.errors">Name is required!!</mat-hint>
-    </mat-form-field>
+    <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+      <div class="form-container">
+        <mat-form-field color="warn" class="form-filed">
+          <input color="warn" matInput placeholder="Name" formControlName="name">
+          <mat-hint class="errors-texts" *ngIf="addUserForm.get('name')?.errors">Name is required!!</mat-hint>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Email" formControlName="email">
-      <mat-hint *ngIf="addUserForm.get('email')?.errors">Email is required!!</mat-hint>
-    </mat-form-field>
+        <mat-form-field color="warn" class="form-filed">
+          <input color="warn" matInput placeholder="Email" formControlName="email">
+          <mat-hint class="errors-texts" *ngIf="addUserForm.get('email')?.errors">Email is required!!</mat-hint>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input type="password" matInput placeholder="Password" formControlName="password">
-      <mat-hint *ngIf="addUserForm.get('password')?.errors">Password is required or password must be min 9
-        charachters!!</mat-hint>
-    </mat-form-field>
+        <mat-form-field color="warn" class="form-filed">
+          <input color="warn" type="password" matInput placeholder="Password" formControlName="password">
+          <mat-hint *ngIf="addUserForm.get('password')?.errors">Password is required or password
+            must be min 9
+            charachters!!</mat-hint>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="ImageUrl" formControlName="imageUrl">
-      <mat-hint *ngIf="addUserForm.get('imageUrl')?.errors">ImageUrl is required!!</mat-hint>
-    </mat-form-field>
-    <button mat-flat-button color="warn" [disabled]="addUserForm.invalid" type="submit">Add
-      User</button>
-  </div>
-</form>
+        <mat-form-field color="warn" class="form-filed">
+          <input color="warn" matInput placeholder="ImageUrl" formControlName="imageUrl">
+          <mat-hint class="errors-texts" *ngIf="addUserForm.get('imageUrl')?.errors">ImageUrl is required!!</mat-hint>
+        </mat-form-field>
+        <button class="addUser-button" mat-flat-button color="warn" [disabled]="addUserForm.invalid" type="submit">Add
+          User</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

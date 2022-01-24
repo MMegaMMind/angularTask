@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { UserService } from './services/user-service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,14 @@ export class AppComponent {
     { name: 'Register', link: 'register' },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   navigateTo(value: any) {
     this.router.navigate(['../', value]);
+  }
+
+  logOut() {
+    this.userService.logout();
+    this.router.navigate(['login']);
   }
 }

@@ -7,9 +7,15 @@
     <span class="example-spacer"></span>
     <button mat-button [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu" class="menu">
+
       <button mat-menu-item routerLink="login">Login</button>
       <button mat-menu-item routerLink="register">Register </button>
     </mat-menu>
+
+    <!-- <button mat-button color="basic" (click)="logOut()">Logout</button> -->
+    <button (click)="logOut()" mat-mini-fab color="basic" aria-label="Example icon button with a logout icon">
+      <mat-icon class="home-icon">power_settings_new</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>

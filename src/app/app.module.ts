@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 //Components
 import { AppComponent } from './app.component';
@@ -28,16 +29,18 @@ import { InterceptorService } from './services/interceptor.service';
 
 //JWT Imports
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
+
 import { AddUserComponent } from './components/add-user/add-user.component';
+import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
-    EditUserComponent,
     AddUserComponent,
+    EditDialogComponent,
   ],
+  entryComponents: [EditDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -55,6 +58,7 @@ import { AddUserComponent } from './components/add-user/add-user.component';
     MatPaginatorModule,
     MatIconModule,
     MatMenuModule,
+    MatCardModule,
     MatDialogModule,
   ],
   providers: [

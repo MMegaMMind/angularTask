@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { map, tap } from 'rxjs/operators';
-import { User } from 'src/app/services/authentication/auth.service';
+import { map } from 'rxjs/operators';
 import {
   UserData,
   UserService,
 } from 'src/app/services/user-service/user.service';
+
+import { MatDialog } from '@angular/material/dialog';
+import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -26,10 +28,16 @@ export class UsersComponent implements OnInit {
     'action',
   ];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.initDataSource();
+  }
+
+  openDialog(data: any) {
+    this.initDataSource();
+    const ref = this.dialog.open(EditDialogComponent);
+    ref.componentInstance.selectedUser = data;
   }
 
   initDataSource() {

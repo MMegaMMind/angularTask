@@ -10,6 +10,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 export const ROUTES: Routes = [{ path: '', component: RegisterComponent }];
 
@@ -21,6 +22,7 @@ export const ROUTES: Routes = [{ path: '', component: RegisterComponent }];
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
     MatButtonModule,
   ],
   declarations: [RegisterComponent],
