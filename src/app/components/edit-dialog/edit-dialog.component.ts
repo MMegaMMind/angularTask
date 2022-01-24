@@ -6,6 +6,7 @@ import {
   UserData,
   UserService,
 } from 'src/app/services/user-service/user.service';
+
 import { UserModel } from '../users/user-model';
 
 @Component({
@@ -41,13 +42,12 @@ export class EditDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('this.editUserForm', this.editUserForm);
-
     this.userService
-      .editUser(this.selectedUser.id, this.selectedUser)
+      .editUser(this.selectedUser.id, this.editUserForm.value)
       .subscribe(
         (res) => {
           alert('User Updated Successfully');
+          console.log('Edited User', res);
           this.dialog.closeAll();
         },
         (error) => {

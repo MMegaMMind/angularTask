@@ -23,6 +23,7 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthService {
+  auth!: boolean;
   constructor(
     @Inject(API_URL) private apiUrl: string,
     private http: HttpClient,
@@ -32,7 +33,7 @@ export class AuthService {
   login(logininForm: LoginForm) {
     const path = `${this.apiUrl}/Auth/login`;
     return this.http
-      .post<any>(path, {
+      .post<User>(path, {
         email: logininForm.email,
         password: logininForm.password,
       })
@@ -47,7 +48,20 @@ export class AuthService {
 
   register(user: User) {
     const path = `${this.apiUrl}/Auth/register`;
-    return this.http.post<any>(path, user).pipe(map((res) => res));
+    return this.http.post<User>(path, user).pipe(map((res) => res));
+  }
+
+  userAuth(): boolean {
+    const token = sessionStorage.getItem(JWT_TOKEN);
+    console.log(token);
+
+    if (token === null) {
+      this.auth = false;
+    } else {
+      this.auth = true;
+    }
+
+    return this.auth;
   }
 
   isAuthenticated(): boolean {

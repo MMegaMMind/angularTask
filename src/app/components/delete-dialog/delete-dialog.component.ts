@@ -19,7 +19,6 @@ export class DeleteDialogComponent implements OnInit {
     this.userService.deleteUser(this.selectedUser.id).subscribe((res) => {
       alert('User Deleted');
       this.dialog.closeAll();
-      window.location.reload();
     });
   }
 

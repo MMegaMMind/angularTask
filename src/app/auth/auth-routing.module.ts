@@ -6,7 +6,6 @@ export const ROUTES: Routes = [
     path: 'auth',
 
     children: [
-      // { path: 'login', loadChildren: './login/login.module#LoginModule' },
       {
         path: 'login',
         loadChildren: () =>

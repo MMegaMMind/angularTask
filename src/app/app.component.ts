@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { AuthService } from './services/authentication/auth.service';
 import { UserService } from './services/user-service/user.service';
 
 @Component({
@@ -10,17 +11,11 @@ import { UserService } from './services/user-service/user.service';
 })
 export class AppComponent {
   title = 'angular-task';
-
-  entries = [
-    { name: 'Login', link: 'login' },
-    { name: 'Register', link: 'register' },
-  ];
-
-  constructor(private router: Router, private userService: UserService) {}
-
-  navigateTo(value: any) {
-    this.router.navigate(['../', value]);
-  }
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   logOut() {
     this.userService.logout();

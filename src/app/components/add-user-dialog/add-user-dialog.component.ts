@@ -40,7 +40,6 @@ export class AddUserDialogComponent implements OnInit {
         map((res) => {
           alert('User Added Successfully!!');
           this.dialog.closeAll();
-          window.location.reload();
         })
       )
       .subscribe();

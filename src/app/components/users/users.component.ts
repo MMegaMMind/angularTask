@@ -38,18 +38,31 @@ export class UsersComponent implements OnInit {
   }
 
   openDialog(data: any) {
-    this.initDataSource();
+    // this.initDataSource();
     const ref = this.dialog.open(EditDialogComponent);
     ref.componentInstance.selectedUser = data;
-  }
 
-  openDialog3() {
-    this.dialog.open(AddUserDialogComponent);
+    ref.afterClosed().subscribe((result) => {
+      this.initDataSource();
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   openDialog2(data: any) {
     const ref = this.dialog.open(DeleteDialogComponent);
     ref.componentInstance.selectedUser = data;
+
+    ref.afterClosed().subscribe((result) => {
+      this.initDataSource();
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openDialog3() {
+    const diaRef = this.dialog.open(AddUserDialogComponent);
+    diaRef.afterClosed().subscribe((res) => {
+      this.initDataSource();
+    });
   }
 
   initDataSource() {
