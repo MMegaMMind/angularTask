@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
+import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -39,6 +41,10 @@ export class UsersComponent implements OnInit {
     this.initDataSource();
     const ref = this.dialog.open(EditDialogComponent);
     ref.componentInstance.selectedUser = data;
+  }
+
+  openDialog3() {
+    this.dialog.open(AddUserDialogComponent);
   }
 
   openDialog2(data: any) {

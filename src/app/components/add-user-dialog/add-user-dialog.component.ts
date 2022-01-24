@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+
 import { UserService } from 'src/app/services/user-service/user.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css'],
+  selector: 'app-add-user-dialog',
+  templateUrl: './add-user-dialog.component.html',
+  styleUrls: ['./add-user-dialog.component.css'],
 })
-export class AddUserComponent implements OnInit {
+export class AddUserDialogComponent implements OnInit {
   addUserForm!: FormGroup;
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: Router
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +39,8 @@ export class AddUserComponent implements OnInit {
       .pipe(
         map((res) => {
           alert('User Added Successfully!!');
-          this.router.navigate(['users']);
+          this.dialog.closeAll();
+          window.location.reload();
         })
       )
       .subscribe();

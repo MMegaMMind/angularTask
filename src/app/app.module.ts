@@ -30,19 +30,24 @@ import { InterceptorService } from './services/interceptor.service';
 //JWT Imports
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
-import { AddUserComponent } from './components/add-user/add-user.component';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
-    AddUserComponent,
+
     EditDialogComponent,
     DeleteDialogComponent,
+    AddUserDialogComponent,
   ],
-  entryComponents: [EditDialogComponent, DeleteDialogComponent],
+  entryComponents: [
+    EditDialogComponent,
+    DeleteDialogComponent,
+    AddUserDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

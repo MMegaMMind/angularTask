@@ -8,7 +8,6 @@ import { RegisterComponent } from './auth/components/register/register.component
 import { UsersComponent } from './components/users/users.component';
 
 import { AuthGuard } from './guards/auth.guard';
-import { AddUserComponent } from './components/add-user/add-user.component';
 
 const ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -21,17 +20,6 @@ const ROUTES: Routes = [
   //   canActivate: [AuthGuard],
   // },
 
-  {
-    path: 'users',
-
-    children: [
-      {
-        path: 'add-user',
-        component: AddUserComponent,
-        canActivate: [AuthGuard],
-      },
-    ],
-  },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
