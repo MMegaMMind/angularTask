@@ -44,7 +44,6 @@ export class UsersComponent implements OnInit {
 
     ref.afterClosed().subscribe((result) => {
       this.initDataSource();
-      console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -54,7 +53,6 @@ export class UsersComponent implements OnInit {
 
     ref.afterClosed().subscribe((result) => {
       this.initDataSource();
-      console.log(`Dialog result: ${result}`);
     });
   }
 

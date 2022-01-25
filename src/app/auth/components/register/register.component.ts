@@ -64,7 +64,6 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    console.log('Register Form', this.registerForm.value);
     this.authService
       .register(this.registerForm.value)
       .pipe(
@@ -74,13 +73,10 @@ export class RegisterComponent implements OnInit {
         })
       )
       .subscribe(
-        (res) => {
-          console.log(res);
-        },
+        (res) => {},
         (err) => {
           this.formError = err.error;
           this.showToasterError();
-          console.log('Error', err.error);
         }
       );
   }

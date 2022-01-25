@@ -65,13 +65,10 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe(
-        (res) => {
-          console.log(res);
-        },
+        (res) => {},
         (err) => {
           this.formError = err.error;
           this.showToasterError();
-          console.log('Error', err.error);
         }
       );
   }

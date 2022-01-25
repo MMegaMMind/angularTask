@@ -5,12 +5,14 @@
     </button>
     <span class="marginLeft">Tours</span>
     <span class="example-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <button *ngIf="isAuth()===false" mat-button [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu" class="menu">
+      <!-- <button mat-menu-item (click)="isAuth()">show</button> -->
       <button mat-menu-item routerLink="login">Login</button>
       <button mat-menu-item routerLink="register">Register </button>
     </mat-menu>
-    <button (click)="logOut()" mat-mini-fab color="basic" aria-label="Example icon button with a logout icon">
+    <button *ngIf="isAuth()===true" (click)="logOut()" mat-mini-fab color="basic"
+      aria-label="Example icon button with a logout icon">
       <mat-icon class="home-icon">power_settings_new</mat-icon>
     </button>
   </mat-toolbar-row>

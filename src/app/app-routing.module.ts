@@ -19,13 +19,6 @@ const ROUTES: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
-  {
-    path: 'users-dashboard',
-    loadChildren: () =>
-      import('./users-dashboard/users-dashboard.module').then(
-        (m) => m.UsersDashboardModule
-      ),
-  },
 ];
 
 @NgModule({

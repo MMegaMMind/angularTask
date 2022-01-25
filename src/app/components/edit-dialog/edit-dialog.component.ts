@@ -48,7 +48,6 @@ export class EditDialogComponent implements OnInit {
 
   private setForm() {
     this.editUserForm.patchValue({ ...this.selectedUser });
-    console.log('User That is selected', this.selectedUser);
   }
 
   onSubmit() {

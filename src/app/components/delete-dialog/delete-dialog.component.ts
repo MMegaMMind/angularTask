@@ -29,7 +29,6 @@ export class DeleteDialogComponent implements OnInit {
   }
 
   removeUser() {
-    console.log(this.selectedUser);
     this.userService.deleteUser(this.selectedUser.id).subscribe(
       (res) => {
         this.showToasterSuccess();
