@@ -1,6 +1,7 @@
 <mat-toolbar color="warn">
   <mat-toolbar-row>
-    <button mat-mini-fab color="basic" routerLink="users" aria-label="Example icon button with a home icon">
+    <button *ngIf="isAuth()===true" mat-mini-fab color="basic" routerLink="users"
+      aria-label="Example icon button with a home icon">
       <mat-icon class="home-icon">home</mat-icon>
     </button>
     <span class="marginLeft">Tours</span>
