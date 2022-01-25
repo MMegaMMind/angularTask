@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notifications/notification.service';
 
 import {
   UserData,
@@ -17,11 +18,12 @@ import { UserModel } from '../users/user-model';
 export class EditDialogComponent implements OnInit {
   selectedUser!: UserModel;
   editUserForm!: FormGroup;
+  formError!: string;
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-
+    private notifyService: NotificationService,
     public dialog: MatDialog
   ) {}
 
@@ -36,6 +38,14 @@ export class EditDialogComponent implements OnInit {
     this.setForm();
   }
 
+  showToasterError() {
+    this.notifyService.showError('Something is wrong', this.formError);
+  }
+
+  showToasterSuccess() {
+    this.notifyService.showSuccess('Success!', 'User is edited!');
+  }
+
   private setForm() {
     this.editUserForm.patchValue({ ...this.selectedUser });
     console.log('User That is selected', this.selectedUser);
@@ -46,13 +56,12 @@ export class EditDialogComponent implements OnInit {
       .editUser(this.selectedUser.id, this.editUserForm.value)
       .subscribe(
         (res) => {
-          alert('User Updated Successfully');
-          console.log('Edited User', res);
+          this.showToasterSuccess();
           this.dialog.closeAll();
         },
-        (error) => {
-          console.log('An error has happened: ', error.message);
-          console.log('Error accured', error);
+        (err) => {
+          this.formError = err.error;
+          this.showToasterError();
         }
       );
   }

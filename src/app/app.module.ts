@@ -20,6 +20,9 @@ import { MatCardModule } from '@angular/material/card';
 //Components
 import { AppComponent } from './app.component';
 import { UsersComponent } from './components/users/users.component';
+import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
 
 //Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -30,9 +33,7 @@ import { InterceptorService } from './services/interceptor.service';
 //JWT Imports
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
-import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
-import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
-import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,8 @@ import { AddUserDialogComponent } from './components/add-user-dialog/add-user-di
     MatMenuModule,
     MatCardModule,
     MatDialogModule,
+    //Toastr Module
+    ToastrModule.forRoot(),
   ],
   providers: [
     JwtHelperService,

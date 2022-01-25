@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs';
 
 import { AuthService } from 'src/app/services/authentication/auth.service';
+import { NotificationService } from 'src/app/services/notifications/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,14 @@ import { AuthService } from 'src/app/services/authentication/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  formError!: string;
   loginForm!: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notifyService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -25,6 +31,26 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  get passwordInvalid() {
+    const control = this.loginForm.get('password');
+    return control?.hasError('required') && control.touched;
+  }
+
+  get emailFormat() {
+    const control = this.loginForm.get('email');
+    return control?.hasError('email') && control.touched;
+  }
+  showToasterError() {
+    this.notifyService.showError('Something is wrong', this.formError);
+  }
+
+  showToasterSuccess() {
+    this.notifyService.showSuccess(
+      'Login successful!!',
+      'You are now logged in!!!'
+    );
+  }
+
   onSubmit() {
     if (this.loginForm.invalid) {
       return;
@@ -34,11 +60,19 @@ export class LoginComponent implements OnInit {
       .login(this.loginForm.value)
       .pipe(
         map((res) => {
+          this.showToasterSuccess();
           this.router.navigate(['users']);
-          console.log('Success');
-          return res;
         })
       )
-      .subscribe();
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          this.formError = err.error;
+          this.showToasterError();
+          console.log('Error', err.error);
+        }
+      );
   }
 }

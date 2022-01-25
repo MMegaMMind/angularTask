@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user-service/user.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+
 import { map } from 'rxjs';
 
 import { MatDialog } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notifications/notification.service';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -14,11 +15,14 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./add-user-dialog.component.css'],
 })
 export class AddUserDialogComponent implements OnInit {
+  formError!: string;
   addUserForm!: FormGroup;
+
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private notifyService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +34,34 @@ export class AddUserDialogComponent implements OnInit {
     });
   }
 
+  get nameInvalid() {
+    const control = this.addUserForm.get('name');
+    return control?.hasError('required') && control.touched;
+  }
+
+  get emailFormat() {
+    const control = this.addUserForm.get('email');
+    return control?.hasError('email') && control.touched;
+  }
+
+  get passwordInvalid() {
+    const control = this.addUserForm.get('password');
+    return control?.hasError('required') && control.touched;
+  }
+
+  get imageInvalid() {
+    const control = this.addUserForm.get('imageUrl');
+    return control?.hasError('required') && control.touched;
+  }
+
+  showToasterError() {
+    this.notifyService.showError('Something is wrong', this.formError);
+  }
+
+  showToasterSuccess() {
+    this.notifyService.showSuccess('Success!', 'User is created!');
+  }
+
   onSubmit() {
     if (this.addUserForm.invalid) {
       return;
@@ -38,10 +70,18 @@ export class AddUserDialogComponent implements OnInit {
       .addUser(this.addUserForm.value)
       .pipe(
         map((res) => {
-          alert('User Added Successfully!!');
+          this.showToasterSuccess();
           this.dialog.closeAll();
         })
       )
-      .subscribe();
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          this.formError = err.error;
+          this.showToasterError();
+        }
+      );
   }
 }
