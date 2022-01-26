@@ -26,6 +26,7 @@ import { AddUserDialogComponent } from './components/add-user-dialog/add-user-di
 
 //Modules
 import { AppRoutingModule } from './app-routing.module';
+import { AuthGuard } from './guards/auth.guard';
 
 //Services
 import { InterceptorService } from './services/interceptor.service';
@@ -39,16 +40,11 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [
     AppComponent,
     UsersComponent,
+    EditDialogComponent,
+    DeleteDialogComponent,
+    AddUserDialogComponent,
+  ],
 
-    EditDialogComponent,
-    DeleteDialogComponent,
-    AddUserDialogComponent,
-  ],
-  entryComponents: [
-    EditDialogComponent,
-    DeleteDialogComponent,
-    AddUserDialogComponent,
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

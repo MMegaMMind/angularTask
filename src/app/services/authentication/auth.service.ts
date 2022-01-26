@@ -47,7 +47,7 @@ export class AuthService {
 
   register(user: User) {
     const path = `${this.apiUrl}/Auth/register`;
-    return this.http.post<User>(path, user).pipe(map((res) => res));
+    return this.http.post<User>(path, user);
   }
 
   isAuthenticated(): boolean {

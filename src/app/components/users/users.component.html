@@ -65,8 +65,8 @@
 
 
   <mat-paginator [length]="dataSource.pagination.totalCount" [pageSize]="dataSource.pagination.pageSize"
-    [pageSizeOptions]="[10]" (page)="pageEvent = $event;onPaginateChange($event)" showFirstLastButtons
-    aria-label="Select page" class="paginator">
+    [pageSizeOptions]="[10]" (page)="onPaginateChange($event)" showFirstLastButtons aria-label="Select page"
+    class="paginator">
   </mat-paginator>
 
 </div>

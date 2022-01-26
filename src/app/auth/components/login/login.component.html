@@ -5,15 +5,17 @@
       <div class="form-container">
         <mat-form-field color="warn" class="form-filed">
           <input color="warn" matInput placeholder="Email" formControlName="email">
-          <mat-hint class="errors-text" *ngIf="emailFormat">Email is required</mat-hint>
+          <mat-hint class="errors-text" *ngIf="getInvalidInput('email','required')">Email is required</mat-hint>
+
+          <mat-hint class="errors-text" *ngIf="getInvalidInput('email','email')">Email format not valid!</mat-hint>
         </mat-form-field>
 
         <mat-form-field color="warn" class="form-filed">
           <input color="warn" matInput placeholder="Password" type="password" formControlName="password">
-          <mat-hint class="errors-text" *ngIf="passwordInvalid">Password is required</mat-hint>
+          <mat-hint class="errors-text" *ngIf="getInvalidInput('password','required')">Password is required</mat-hint>
         </mat-form-field>
 
-        <button class="login-button" mat-flat-button color="warn" [disabled]='!loginForm.valid'
+        <button class="login-button" mat-flat-button color="warn" [disabled]='!loginForm.valid || isSubmited'
           type="submit">Login</button>
       </div>
     </form>

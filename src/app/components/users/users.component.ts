@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import {
   UserData,
   UserService,
@@ -12,16 +12,21 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 
+interface Payload {
+  page: number;
+  limit: number;
+}
+
+const initState: Payload = { page: 1, limit: 10 };
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  filterValue!: string;
+  filterValue: string = '';
   dataSource!: UserData;
-  pageEvent!: PageEvent;
-
   displayedColumns: string[] = [
     'id',
     'name',
@@ -34,7 +39,7 @@ export class UsersComponent implements OnInit {
   constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.initDataSource();
+    this.fetchData();
   }
 
   openDialog(data: any) {
@@ -43,7 +48,7 @@ export class UsersComponent implements OnInit {
     ref.componentInstance.selectedUser = data;
 
     ref.afterClosed().subscribe((result) => {
-      this.initDataSource();
+      this.fetchData();
     });
   }
 
@@ -52,32 +57,29 @@ export class UsersComponent implements OnInit {
     ref.componentInstance.selectedUser = data;
 
     ref.afterClosed().subscribe((result) => {
-      this.initDataSource();
+      this.fetchData();
     });
   }
 
   openDialog3() {
     const diaRef = this.dialog.open(AddUserDialogComponent);
     diaRef.afterClosed().subscribe((res) => {
-      this.initDataSource();
+      this.fetchData();
     });
   }
 
-  initDataSource() {
+  fetchData(payload: Payload = initState) {
+    const { page, limit } = payload;
     this.userService
-      .findAll(1, 10)
-      .pipe(map((userData: UserData) => (this.dataSource = userData)))
-      .subscribe();
+      .findAll(page, limit)
+      .pipe(take(1))
+      .subscribe((res) => (this.dataSource = res));
   }
 
   onPaginateChange(event: PageEvent) {
-    let page = event.pageIndex;
-    let size = event.pageSize;
-    page = page + 1;
-    this.userService
-      .findAll(page, size)
-      .pipe(map((userData: UserData) => (this.dataSource = userData)))
-      .subscribe();
+    let page = event.pageIndex + 1;
+    let limit = event.pageSize;
+    this.fetchData({ page, limit });
   }
 
   findByName(name: string) {
