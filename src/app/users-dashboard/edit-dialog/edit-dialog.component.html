@@ -20,7 +20,7 @@
         <input matInput placeholder="ImageUrl" formControlName="imageUrl">
         <mat-hint class="errors-texts" *ngIf="getInvalidInput('imageUrl', 'required')">Image is required!!</mat-hint>
       </mat-form-field>
-      <button class="editUser-button " mat-flat-button color="warn" type="submit"
+      <button class="edit-user-button " mat-flat-button color="warn" type="submit"
         [disabled]="editUserForm.invalid || isSubmited">Update
         User</button>
     </div>

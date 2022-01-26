@@ -68,8 +68,6 @@ export class UsersComponent implements OnInit {
     });
   }
 
-
-
   fetchData(payload: Payload = initState) {
     const { page, limit } = payload;
     this.userService
