@@ -11,6 +11,7 @@ import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 interface Payload {
   page: number;
@@ -36,36 +37,35 @@ export class UsersComponent implements OnInit {
     'action',
   ];
 
-  constructor(private userService: UserService, public dialog: MatDialog) {}
+  constructor(
+    private userService: UserService,
+    public dialog: MatDialog,
+    private toast: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.fetchData();
   }
 
-  editDialog(data: any) {
-    // this.initDataSource();
-    const ref = this.dialog.open(EditDialogComponent);
-    ref.componentInstance.selectedUser = data;
-
-    ref.afterClosed().subscribe((result) => {
-      this.fetchData();
-    });
-  }
-
-  deleteDialog(data: any) {
-    const ref = this.dialog.open(DeleteDialogComponent);
-    ref.componentInstance.selectedUser = data;
-
-    ref.afterClosed().subscribe((result) => {
-      this.fetchData();
-    });
-  }
-
-  addUserDialog() {
-    const diaRef = this.dialog.open(AddUserDialogComponent);
-    diaRef.afterClosed().subscribe((res) => {
-      this.fetchData();
-    });
+  formDialog(action: string, data?: any) {
+    if (action === 'edit') {
+      const ref = this.dialog.open(EditDialogComponent);
+      ref.componentInstance.selectedUser = data;
+      ref.afterClosed().subscribe((res) => {
+        this.fetchData();
+      });
+    } else if (action === 'delete') {
+      const ref = this.dialog.open(DeleteDialogComponent);
+      ref.componentInstance.selectedUser = data;
+      ref.afterClosed().subscribe((res) => {
+        this.fetchData();
+      });
+    } else if (action === 'create') {
+      const ref = this.dialog.open(AddUserDialogComponent);
+      ref.afterClosed().subscribe((res) => {
+        this.fetchData();
+      });
+    }
   }
 
   fetchData(payload: Payload = initState) {
@@ -85,7 +85,12 @@ export class UsersComponent implements OnInit {
   findByName(name: string) {
     this.userService
       .paginateByName(name, 0, 10)
-      .pipe(map((userData: UserData) => (this.dataSource = userData)))
-      .subscribe();
+      .pipe(take(1))
+      .subscribe({
+        next: (userData: UserData) => (this.dataSource = userData),
+        error: (err) => {
+          this.toast.error('Something is wrong', err.error);
+        },
+      });
   }
 }

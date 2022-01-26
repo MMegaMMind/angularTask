@@ -15,6 +15,7 @@ import { finalize, take } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ToastrService } from 'ngx-toastr';
+import { UserModel } from '../users/user-model';
 
 class CustomValidators {
   static passwordMatch(control: AbstractControl): ValidationErrors | null {
@@ -39,6 +40,7 @@ class CustomValidators {
   styleUrls: ['./add-user-dialog.component.css'],
 })
 export class AddUserDialogComponent {
+  
   isSubmited: boolean = false;
   addUserForm: FormGroup = this.formBuilder.group(
     {

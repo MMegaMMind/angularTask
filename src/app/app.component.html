@@ -4,11 +4,10 @@
       aria-label="Example icon button with a home icon">
       <mat-icon class="home-icon">home</mat-icon>
     </button>
-    <span class="marginLeft">Tours</span>
+    <span class="margin-left">Tours</span>
     <span class="example-spacer"></span>
     <button *ngIf="!isAuth()" mat-button [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu" class="menu">
-      <!-- <button mat-menu-item (click)="isAuth()">show</button> -->
       <button mat-menu-item routerLink="/auth/login">Login</button>
       <button mat-menu-item routerLink="/auth/register">Register </button>
     </mat-menu>

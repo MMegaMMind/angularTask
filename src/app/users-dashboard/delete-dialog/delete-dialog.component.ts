@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { finalize, take } from 'rxjs';
 
 import { UserService } from 'src/app/services/user-service/user.service';
 import { UserModel } from '../users/user-model';
@@ -11,6 +12,7 @@ import { UserModel } from '../users/user-model';
   styleUrls: ['./delete-dialog.component.css'],
 })
 export class DeleteDialogComponent {
+  isSubmited: boolean = false;
   @Input() selectedUser!: UserModel;
   formError!: string;
   constructor(
@@ -21,15 +23,22 @@ export class DeleteDialogComponent {
   ) {}
 
   removeUser() {
-    this.userService.deleteUser(this.selectedUser.id).subscribe({
-      next: () => {
-        this.toast.success('Success!', 'User is deleted!');
-        this.dialog.closeAll();
-      },
-      error: (err) => {
-        this.toast.error('Something is wrong', err.error);
-      },
-    });
+    this.isSubmited = true;
+    this.userService
+      .deleteUser(this.selectedUser.id)
+      .pipe(
+        take(1),
+        finalize(() => (this.isSubmited = false))
+      )
+      .subscribe({
+        next: () => {
+          this.toast.success('Success!', 'User is deleted!');
+          this.dialog.closeAll();
+        },
+        error: (err) => {
+          this.toast.error('Something is wrong', err.error);
+        },
+      });
   }
 
   closeDialog() {

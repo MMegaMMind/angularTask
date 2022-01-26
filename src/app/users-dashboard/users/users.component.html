@@ -10,7 +10,7 @@
   <!-- <button class="user-button" color="warn" mat-flat-button routerLink="add-user">Create a
     User</button> -->
 
-  <button class="user-button" color="warn" mat-flat-button (click)="addUserDialog()">Create a
+  <button class="user-button" color="warn" mat-flat-button (click)="formDialog('create')">Create a
     User</button>
 </div>
 
@@ -48,14 +48,11 @@
 
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef class="action-header"> Action </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <!-- <button class="edit-button" routerLink="edit-user" mat-stroked-button color="warn"
-          (click)="onClick(row)">Edit</button> -->
-
-        <button class="edit-button" mat-stroked-button color="warn" (click)="editDialog(row)">Edit</button>
+      <mat-cell *matCellDef="let row" class="action-buttons">
+        <button class="edit-button" mat-stroked-button color="warn" (click)="formDialog('edit',row)">Edit</button>
 
         <!-- Delete Button -->
-        <button class="button-margin-left" (click)="deleteDialog(row)" mat-mini-fab color="warn"
+        <button class="button-margin-left" (click)="formDialog('delete',row)" mat-mini-fab color="warn"
           aria-label="Example icon button with a delete icon">
           <mat-icon>delete</mat-icon>
         </button>

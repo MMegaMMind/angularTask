@@ -15,7 +15,7 @@ import { UserModel } from '../users/user-model';
 })
 export class EditDialogComponent implements OnInit {
   isSubmited: boolean = false;
-  @Input() selectedUser!: UserModel;
+  selectedUser!: UserModel;
 
   editUserForm: FormGroup = this.formBuilder.group({
     id: [''],
@@ -27,7 +27,7 @@ export class EditDialogComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private notifyService: ToastrService,
+    private toast: ToastrService,
     public dialog: MatDialog
   ) {}
 
@@ -50,11 +50,11 @@ export class EditDialogComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          this.notifyService.success('Success!', 'User is edited!');
+          this.toast.success('Success!', 'User is edited!');
           this.dialog.closeAll();
         },
         error: (err) => {
-          this.notifyService.error('Something is wrong', err.error);
+          this.toast.error('Something is wrong', err.error);
         },
       });
   }
