@@ -16,6 +16,14 @@
   width: 100%;
 }
 
-.editUser-button {
+.edit-user-button {
   margin-top: 20px;
+}
+
+.form-filed {
+  margin-top: 6px;
+}
+
+.errors-texts {
+  margin: 5px 0;
 }

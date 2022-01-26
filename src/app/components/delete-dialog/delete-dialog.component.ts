@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NotificationService } from 'src/app/services/notifications/notification.service';
+import { ToastrService } from 'ngx-toastr';
+
 import { UserService } from 'src/app/services/user-service/user.service';
 import { UserModel } from '../users/user-model';
 
@@ -9,36 +10,26 @@ import { UserModel } from '../users/user-model';
   templateUrl: './delete-dialog.component.html',
   styleUrls: ['./delete-dialog.component.css'],
 })
-export class DeleteDialogComponent implements OnInit {
-  selectedUser!: UserModel;
+export class DeleteDialogComponent {
+  @Input() selectedUser!: UserModel;
   formError!: string;
   constructor(
     private userService: UserService,
     public dialog: MatDialog,
-    private notifyService: NotificationService
+
+    private toast: ToastrService
   ) {}
 
-  ngOnInit(): void {}
-
-  showToasterError() {
-    this.notifyService.showError('Something is wrong', this.formError);
-  }
-
-  showToasterSuccess() {
-    this.notifyService.showSuccess('Success!', 'User is deleted!');
-  }
-
   removeUser() {
-    this.userService.deleteUser(this.selectedUser.id).subscribe(
-      (res) => {
-        this.showToasterSuccess();
+    this.userService.deleteUser(this.selectedUser.id).subscribe({
+      next: () => {
+        this.toast.success('Success!', 'User is deleted!');
         this.dialog.closeAll();
       },
-      (err) => {
-        this.formError = err.error;
-        this.showToasterError();
-      }
-    );
+      error: (err) => {
+        this.toast.error('Something is wrong', err.error);
+      },
+    });
   }
 
   closeDialog() {

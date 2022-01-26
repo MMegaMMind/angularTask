@@ -3,18 +3,25 @@
 <mat-dialog-content>
   <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
     <div class="form-container">
-      <mat-form-field color="warn">
+      <mat-form-field color="warn" class="form-filed">
         <input color="warn" matInput placeholder="Name" formControlName="name">
+        <mat-hint class="errors-texts" *ngIf="getInvalidInput('name', 'required')">Name is required!!</mat-hint>
       </mat-form-field>
 
-      <mat-form-field color="warn">
+      <mat-form-field color="warn" class="form-filed">
         <input color="warn" matInput placeholder="Email" formControlName="email">
+        <mat-hint class="errors-texts" *ngIf="getInvalidInput('email', 'required')">Email is required!!!
+        </mat-hint>
+        <mat-hint class="errors-texts" *ngIf="getInvalidInput('email', 'email')">Email is not valid!!!
+        </mat-hint>
       </mat-form-field>
 
-      <mat-form-field color="warn">
+      <mat-form-field color="warn" class="form-filed">
         <input matInput placeholder="ImageUrl" formControlName="imageUrl">
+        <mat-hint class="errors-texts" *ngIf="getInvalidInput('imageUrl', 'required')">Image is required!!</mat-hint>
       </mat-form-field>
-      <button class="editUser-button " mat-flat-button color="warn" type="submit">Update
+      <button class="editUser-button " mat-flat-button color="warn" type="submit"
+        [disabled]="editUserForm.invalid || isSubmited">Update
         User</button>
     </div>
   </form>

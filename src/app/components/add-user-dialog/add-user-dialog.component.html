@@ -4,24 +4,42 @@
   <div class="form-container">
     <mat-form-field color="warn" class="form-filed">
       <input color="warn" matInput placeholder="Name" formControlName="name">
-      <mat-hint class="errors-texts" *ngIf="nameInvalid">Name is required!!</mat-hint>
+      <mat-hint class="errors-texts" *ngIf="getInvalidInput('name', 'required')">Name is required!!</mat-hint>
     </mat-form-field>
 
     <mat-form-field color="warn" class="form-filed">
       <input color="warn" matInput placeholder="Email" formControlName="email">
-      <mat-hint class="errors-texts" *ngIf="emailFormat">Email is required!!</mat-hint>
+      <mat-hint class="errors-texts" *ngIf="getInvalidInput('email', 'required')">Email is required!!!
+      </mat-hint>
+      <mat-hint class="errors-texts" *ngIf="getInvalidInput('email', 'email')">Email is not valid!!!
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field color="warn" class="form-filed">
       <input color="warn" type="password" matInput placeholder="Password" formControlName="password">
-      <mat-hint *ngIf="passwordInvalid">Password is required!!</mat-hint>
+      <mat-hint class="errors-texts" *ngIf="getInvalidInput('password', 'required')">Password is required!!!
+      </mat-hint>
+      <mat-hint class="errors-texts" *ngIf="getInvalidInput('password', 'minlength')">Password mus be at least 9
+        charachters!!!
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field color="warn" class="form-filed">
+      <input color="warn" type="password" matInput placeholder="Confirm Password" formControlName="passwordConfirm">
+      <mat-hint class="errors-texts" *ngIf="getInvalidInput('passwordConfirm', 'required')">Password Confirmation is
+        required!!!
+      </mat-hint>
+      <mat-hint class="errors-texts" *ngIf="addUserForm.errors?.['passwordsNotMatching']">Password not
+        matching!!!
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field color="warn" class="form-filed">
       <input color="warn" matInput placeholder="ImageUrl" formControlName="imageUrl">
-      <mat-hint class="errors-texts" *ngIf="imageInvalid">ImageUrl is required!!</mat-hint>
+      <mat-hint class="errors-texts" *ngIf="getInvalidInput('imageUrl', 'required')">Image is required!!</mat-hint>
     </mat-form-field>
-    <button class="addUser-button" mat-flat-button color="warn" [disabled]="addUserForm.invalid" type="submit">Add
+    <button class="addUser-button" mat-flat-button color="warn" [disabled]="addUserForm.invalid || isSubmited"
+      type="submit">Add
       User</button>
   </div>
 </form>

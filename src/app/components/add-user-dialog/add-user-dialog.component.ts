@@ -1,87 +1,88 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { UserService } from 'src/app/services/user-service/user.service';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 
-import { map } from 'rxjs';
+import { finalize, take } from 'rxjs';
 
 import { MatDialog } from '@angular/material/dialog';
-import { NotificationService } from 'src/app/services/notifications/notification.service';
+
+import { ToastrService } from 'ngx-toastr';
+
+class CustomValidators {
+  static passwordMatch(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const passwordConfirm = control.get('passwordConfirm')?.value;
+
+    if (
+      password === passwordConfirm &&
+      password !== null &&
+      passwordConfirm !== null
+    ) {
+      return null;
+    } else {
+      return { passwordsNotMatching: true };
+    }
+  }
+}
 
 @Component({
   selector: 'app-add-user-dialog',
   templateUrl: './add-user-dialog.component.html',
   styleUrls: ['./add-user-dialog.component.css'],
 })
-export class AddUserDialogComponent implements OnInit {
-  formError!: string;
-  addUserForm!: FormGroup;
+export class AddUserDialogComponent {
+  isSubmited: boolean = false;
+  addUserForm: FormGroup = this.formBuilder.group(
+    {
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(9)]],
+      passwordConfirm: ['', [Validators.required]],
+      imageUrl: ['', [Validators.required]],
+    },
+    {
+      validators: CustomValidators.passwordMatch,
+    }
+  );
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private notifyService: NotificationService
+    private toast: ToastrService
   ) {}
 
-  ngOnInit(): void {
-    this.addUserForm = this.formBuilder.group({
-      name: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(9)]],
-      imageUrl: [null, [Validators.required]],
-    });
+  getInvalidInput(field: string, validation: string = 'required') {
+    const control = this.addUserForm.get(field);
+    return control?.hasError(validation) && control.touched;
   }
-
-  get nameInvalid() {
-    const control = this.addUserForm.get('name');
-    return control?.hasError('required') && control.touched;
-  }
-
-  get emailFormat() {
-    const control = this.addUserForm.get('email');
-    return control?.hasError('email') && control.touched;
-  }
-
-  get passwordInvalid() {
-    const control = this.addUserForm.get('password');
-    return control?.hasError('required') && control.touched;
-  }
-
-  get imageInvalid() {
-    const control = this.addUserForm.get('imageUrl');
-    return control?.hasError('required') && control.touched;
-  }
-
-  showToasterError() {
-    this.notifyService.showError('Something is wrong', this.formError);
-  }
-
-  showToasterSuccess() {
-    this.notifyService.showSuccess('Success!', 'User is created!');
-  }
-
   onSubmit() {
+    this.isSubmited = true;
     if (this.addUserForm.invalid) {
       return;
     }
     this.userService
       .addUser(this.addUserForm.value)
       .pipe(
-        map((res) => {
-          this.showToasterSuccess();
-          this.dialog.closeAll();
-        })
+        take(1),
+        finalize(() => (this.isSubmited = false))
       )
-      .subscribe(
-        (res) => {
-          console.log(res);
+      .subscribe({
+        next: () => {
+          this.toast.success('Success!', 'User is created!');
+          this.dialog.closeAll();
         },
-        (err) => {
-          this.formError = err.error;
-          this.showToasterError();
-        }
-      );
+        error: (err) => {
+          this.toast.error('Something is wrong', err.error);
+        },
+      });
   }
 }

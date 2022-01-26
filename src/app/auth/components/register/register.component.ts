@@ -11,8 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize, take } from 'rxjs';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 
-
-
 class CustomValidators {
   static passwordMatch(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
@@ -77,7 +75,7 @@ export class RegisterComponent {
         finalize(() => (this.isSubmited = false))
       )
       .subscribe({
-        next: (res) => {
+        next: () => {
           this.toast.success(
             'Register successful!!',
             'You are now registered!!!'

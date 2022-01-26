@@ -1,13 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { take } from 'rxjs';
+import { finalize, take } from 'rxjs';
 
-import {
-  UserData,
-  UserService,
-} from 'src/app/services/user-service/user.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 import { UserModel } from '../users/user-model';
 
@@ -17,13 +14,14 @@ import { UserModel } from '../users/user-model';
   styleUrls: ['./edit-dialog.component.css'],
 })
 export class EditDialogComponent implements OnInit {
+  isSubmited: boolean = false;
   @Input() selectedUser!: UserModel;
 
   editUserForm: FormGroup = this.formBuilder.group({
     id: [''],
-    name: [''],
-    email: [''],
-    imageUrl: [''],
+    name: ['', [Validators.required]],
+    email: ['', [Validators.email, Validators.required]],
+    imageUrl: ['', [Validators.required]],
   });
 
   constructor(
@@ -37,10 +35,19 @@ export class EditDialogComponent implements OnInit {
     this.editUserForm.patchValue({ ...this.selectedUser });
   }
 
+  getInvalidInput(field: string, validation: string = 'required') {
+    const control = this.editUserForm.get(field);
+    return control?.hasError(validation) && control.touched;
+  }
+
   onSubmit() {
+    this.isSubmited = true;
     this.userService
       .editUser(this.selectedUser.id, this.editUserForm.value)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        finalize(() => (this.isSubmited = false))
+      )
       .subscribe({
         next: (res) => {
           this.notifyService.success('Success!', 'User is edited!');
