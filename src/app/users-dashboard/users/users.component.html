@@ -10,7 +10,7 @@
   <!-- <button class="user-button" color="warn" mat-flat-button routerLink="add-user">Create a
     User</button> -->
 
-  <button class="user-button" color="warn" mat-flat-button (click)="openDialog3()">Create a
+  <button class="user-button" color="warn" mat-flat-button (click)="addUserDialog()">Create a
     User</button>
 </div>
 
@@ -52,10 +52,10 @@
         <!-- <button class="edit-button" routerLink="edit-user" mat-stroked-button color="warn"
           (click)="onClick(row)">Edit</button> -->
 
-        <button class="edit-button" mat-stroked-button color="warn" (click)="openDialog(row)">Edit</button>
+        <button class="edit-button" mat-stroked-button color="warn" (click)="editDialog(row)">Edit</button>
 
         <!-- Delete Button -->
-        <button class="button-margin-left" (click)="openDialog2(row)" mat-mini-fab color="warn"
+        <button class="button-margin-left" (click)="deleteDialog(row)" mat-mini-fab color="warn"
           aria-label="Example icon button with a delete icon">
           <mat-icon>delete</mat-icon>
         </button>

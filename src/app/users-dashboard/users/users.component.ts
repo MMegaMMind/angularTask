@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit {
     this.fetchData();
   }
 
-  openDialog(data: any) {
+  editDialog(data: any) {
     // this.initDataSource();
     const ref = this.dialog.open(EditDialogComponent);
     ref.componentInstance.selectedUser = data;
@@ -52,7 +52,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  openDialog2(data: any) {
+  deleteDialog(data: any) {
     const ref = this.dialog.open(DeleteDialogComponent);
     ref.componentInstance.selectedUser = data;
 
@@ -61,12 +61,14 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  openDialog3() {
+  addUserDialog() {
     const diaRef = this.dialog.open(AddUserDialogComponent);
     diaRef.afterClosed().subscribe((res) => {
       this.fetchData();
     });
   }
+
+
 
   fetchData(payload: Payload = initState) {
     const { page, limit } = payload;

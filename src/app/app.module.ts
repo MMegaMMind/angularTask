@@ -19,10 +19,10 @@ import { MatCardModule } from '@angular/material/card';
 
 //Components
 import { AppComponent } from './app.component';
-import { UsersComponent } from './components/users/users.component';
-import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
-import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
-import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
+import { UsersComponent } from './users-dashboard/users/users.component';
+import { EditDialogComponent } from './users-dashboard/edit-dialog/edit-dialog.component';
+import { DeleteDialogComponent } from './users-dashboard/delete-dialog/delete-dialog.component';
+import { AddUserDialogComponent } from './users-dashboard/add-user-dialog/add-user-dialog.component';
 
 //Modules
 import { AppRoutingModule } from './app-routing.module';
