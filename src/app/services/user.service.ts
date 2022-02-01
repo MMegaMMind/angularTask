@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { API_URL } from 'src/app/core/api.token';
-import { User } from '../authentication/auth.service';
+import { User } from './auth.service';
 
 export interface UserData {
   data: User[];

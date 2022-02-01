@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { map, take } from 'rxjs/operators';
-import {
-  UserData,
-  UserService,
-} from 'src/app/services/user-service/user.service';
+import { UserData, UserService } from 'src/app/services/user.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';

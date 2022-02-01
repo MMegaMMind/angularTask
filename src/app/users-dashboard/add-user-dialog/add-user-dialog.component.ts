@@ -1,38 +1,10 @@
 import { Component } from '@angular/core';
-
-import { UserService } from 'src/app/services/user-service/user.service';
-
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
-
-import { finalize, take } from 'rxjs';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-
 import { ToastrService } from 'ngx-toastr';
-import { UserModel } from '../users/user-model';
-
-class CustomValidators {
-  static passwordMatch(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password')?.value;
-    const passwordConfirm = control.get('passwordConfirm')?.value;
-
-    if (
-      password === passwordConfirm &&
-      password !== null &&
-      passwordConfirm !== null
-    ) {
-      return null;
-    } else {
-      return { passwordsNotMatching: true };
-    }
-  }
-}
+import { finalize, take } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { PasswordsMatchValidator } from 'src/app/shared/password.validator';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -40,7 +12,6 @@ class CustomValidators {
   styleUrls: ['./add-user-dialog.component.css'],
 })
 export class AddUserDialogComponent {
-  
   isSubmited: boolean = false;
   addUserForm: FormGroup = this.formBuilder.group(
     {
@@ -51,7 +22,7 @@ export class AddUserDialogComponent {
       imageUrl: ['', [Validators.required]],
     },
     {
-      validators: CustomValidators.passwordMatch,
+      validators: PasswordsMatchValidator.passwordMatch,
     }
   );
 

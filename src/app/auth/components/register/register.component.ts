@@ -9,7 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { finalize, take } from 'rxjs';
-import { AuthService } from 'src/app/services/authentication/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 class CustomValidators {
   static passwordMatch(control: AbstractControl): ValidationErrors | null {
@@ -31,7 +31,7 @@ class CustomValidators {
 @Component({
   selector: 'app-register',
   templateUrl: 'register.component.html',
-  styleUrls: ['register.component.css'],
+  styleUrls: ['../../styles/auth.styles.css'],
 })
 export class RegisterComponent {
   isSubmited: boolean = false;
