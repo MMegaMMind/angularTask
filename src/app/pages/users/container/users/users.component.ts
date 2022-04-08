@@ -4,10 +4,10 @@ import { map, take } from 'rxjs/operators';
 import { UserData, UserService } from 'src/app/services/user.service';
 
 import { MatDialog } from '@angular/material/dialog';
-import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { EditDialogComponent } from '../../components/edit-dialog/edit-dialog.component';
+import { DeleteDialogComponent } from '../../components/delete-dialog/delete-dialog.component';
 
-import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
+import { AddUserDialogComponent } from '../../components/add-user-dialog/add-user-dialog.component';
 import { ToastrService } from 'ngx-toastr';
 
 interface Payload {

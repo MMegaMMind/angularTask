@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -19,14 +19,9 @@ import { MatCardModule } from '@angular/material/card';
 
 //Components
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users-dashboard/users/users.component';
-import { EditDialogComponent } from './users-dashboard/edit-dialog/edit-dialog.component';
-import { DeleteDialogComponent } from './users-dashboard/delete-dialog/delete-dialog.component';
-import { AddUserDialogComponent } from './users-dashboard/add-user-dialog/add-user-dialog.component';
 
 //Modules
-import { AppRoutingModule } from './app-routing.module';
-
+import {routes} from "./routes";
 //Services
 import { InterceptorService } from './services/interceptor.service';
 
@@ -34,22 +29,21 @@ import { InterceptorService } from './services/interceptor.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { ToastrModule } from 'ngx-toastr';
+import {RouterModule} from "@angular/router";
+import {LayoutModule} from "./layout/layout.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
-    EditDialogComponent,
-    DeleteDialogComponent,
-    AddUserDialogComponent,
   ],
 
   imports: [
     BrowserModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    LayoutModule,
+    RouterModule.forRoot(routes),
     //Angular Material
     BrowserAnimationsModule,
     MatSelectModule,
@@ -58,7 +52,6 @@ import { ToastrModule } from 'ngx-toastr';
     MatButtonModule,
     MatInputModule,
     MatTableModule,
-    MatPaginatorModule,
     MatIconModule,
     MatMenuModule,
     MatCardModule,

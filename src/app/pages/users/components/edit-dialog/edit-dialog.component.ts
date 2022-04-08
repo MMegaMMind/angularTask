@@ -6,7 +6,7 @@ import { finalize, take } from 'rxjs';
 
 import { UserService } from 'src/app/services/user.service';
 
-import { UserModel } from '../users/user-model';
+import { UserModel } from '../../container/users/models/user-model';
 
 @Component({
   selector: 'app-edit-dialog',

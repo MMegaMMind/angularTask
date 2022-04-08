@@ -1,0 +1,20 @@
+<mat-toolbar color="warn">
+  <mat-toolbar-row>
+    <button *ngIf="isAuth()" mat-mini-fab color="basic" routerLink="users"
+            aria-label="Example icon button with a home icon">
+      <mat-icon class="home-icon">home</mat-icon>
+    </button>
+    <span class="margin-left">Tours</span>
+    <span class="example-spacer"></span>
+    <button *ngIf="!isAuth()" mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu" class="menu">
+      <button mat-menu-item routerLink="/auth/login">Login</button>
+      <button mat-menu-item routerLink="/auth/register">Register </button>
+    </mat-menu>
+    <button *ngIf="isAuth()" (click)="logOut()" mat-mini-fab color="basic"
+            aria-label="Example icon button with a logout icon">
+      <mat-icon class="home-icon">power_settings_new</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>
